@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fortinet 安全強化發布說明｜2026-10-22 多產品協調更新（ASD-STE100 改寫版）</title>
+<style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.75;color:#1a1a1a;max-width:880px;margin:0 auto;padding:24px 18px 60px;background:#fff}
+h1{font-size:1.7rem;line-height:1.4;margin:10px 0 6px;color:#0b2e59}
+h2{font-size:1.3rem;margin:34px 0 10px;color:#0b2e59;border-bottom:2px solid #0b2e59;padding-bottom:4px}
+h3{font-size:1.1rem;margin:22px 0 6px;color:#14365e}
+p{margin:8px 0}
+.badge{display:inline-block;background:#0b2e59;color:#fff;border-radius:6px;padding:2px 10px;font-size:.85rem}
+.meta{color:#444;font-size:.95rem}
+.hlbox{border:3px solid #b3261e;background:#fdf3f2;border-radius:12px;padding:18px 22px;margin:20px 0}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:.95rem}
+th,td{border:1px solid #c9d2dd;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#eef3f8}
+tr.hl td{background:#fdeceb}
+ol,ul{margin:8px 0 8px 22px;padding:0}
+li{margin:5px 0}
+.src{font-size:.95rem}
+.src li{margin:6px 0}
+.note{background:#f4f6f9;border-left:4px solid #0b2e59;padding:10px 16px;margin:14px 0}
+footer{margin-top:44px;color:#555;font-size:.9rem;border-top:1px solid #ddd;padding-top:12px}
+a{color:#0b5394}
+code{background:#f0f0f0;padding:1px 5px;border-radius:4px;font-size:.9em}
+</style>
+</head>
+<body>
+<span class="badge">改寫版 ASD-STE100 改寫</span>
+<h1>Fortinet 安全強化發布說明｜2026-10-22 多產品協調更新</h1>
+<p class="meta">原文作者：Carl Windsor（Fortinet 資訊安全長，CISO）。原文出處：Fortinet CISO Collective 部落格。本頁改寫日期：2026-10-22。本頁改寫標準：ASD-STE100 受控中文（中文-順模式）。本頁只改寫句子結構與用詞。本頁不刪減事實、數字與範圍。</p>
+
+<div class="hlbox" style="border:3px solid #b3261e;background:#fdf3f2;border-radius:12px;padding:18px 22px;margin:20px 0">
+<p style="font-size:22px;font-weight:700;margin:6px 0 8px">重點：這次發布為何不同</p>
+<p style="font-size:17px">這些修補處理一批漏洞。此批漏洞由 Fortinet 的 frontier AI-assisted security testing program 找出。Fortinet 把前沿 AI 模型導入產品安全測試流程。模型分析程式碼路徑、協定處理與設定邏輯。Fortinet 稱其深度與速度超過傳統 fuzzing 與人工審查。</p>
+<p style="font-size:17px">Fortinet 稱此做法能在惡意行為者利用漏洞前先修補。Fortinet 稱此為 secure-by-design 的實踐。Fortinet 致謝四家合作方在此過程中的合作。</p>
+<p style="margin:10px 0 4px"><span style="display:inline-block;background:#b3261e;color:#ffffff;font-size:20px;font-weight:700;border-radius:8px;padding:6px 16px;margin:4px">Anthropic</span><span style="display:inline-block;background:#b3261e;color:#ffffff;font-size:20px;font-weight:700;border-radius:8px;padding:6px 16px;margin:4px">OpenAI</span><span style="display:inline-block;background:#b3261e;color:#ffffff;font-size:20px;font-weight:700;border-radius:8px;padding:6px 16px;margin:4px">Google</span><span style="display:inline-block;background:#b3261e;color:#ffffff;font-size:20px;font-weight:700;border-radius:8px;padding:6px 16px;margin:4px">SpaceX</span></p>
+</div>
+
+<h2>三十秒版</h2>
+<table>
+<tr><th>項目</th><th>內容</th></tr>
+<tr><td>發布</td><td>Fortinet 在 2026-10-22 發布協調式安全更新。對象是 FortiOS、FortiManager、FortiAnalyzer。FortiMail 與 FortiAuthenticator 的更新已先發布。</td></tr>
+<tr><td>修補等級</td><td>Fortinet 稱此批修補含 Critical 與 High 等級。Fortinet 要求客戶把此發布當成優先變更。客戶不要把此發布當成例行維護。</td></tr>
+<tr class="hl"><td style="background:#fdeceb;font-weight:700">關鍵差異</td><td style="background:#fdeceb">此批漏洞由 AI 輔助安全測試找出。Fortinet 在攻擊者利用漏洞前先修補。詳見頁首重點框與第二節。</td></tr>
+<tr><td>公告時程</td><td>公開公告排在下一個 Patch Tuesday。日期是 2026-11-10。公告發布在 Fortinet PSIRT 頁面。</td></tr>
+<tr class="hl"><td style="background:#fdeceb;font-weight:700">今天要做的事</td><td style="background:#fdeceb">你先盤點設備。你再排 10 月 22 日到 23 日的維護窗口。你再備份設定。你升級後再檢查日誌。</td></tr>
+</table>
+
+<h2>一、發布內容</h2>
+<p>Fortinet 在 2026-10-22 發布一組協調式安全更新。對象是 FortiOS、FortiManager、FortiAnalyzer。此發布接在 FortiMail 與 FortiAuthenticator 的近期發布之後。</p>
+<p>Fortinet 強烈要求每一位客戶規劃並盡快完成升級。客戶在更新提供後立即處理。對外連網的設備優先。</p>
+<p>這些發布修補一批漏洞。此批漏洞由 Fortinet 的 frontier AI-assisted security testing program 找出。</p>
+
+<h2>二、這次發布為何不同</h2>
+<p>Fortinet 已把前沿 AI 模型整合進產品安全測試流程。這些模型分析程式碼路徑、協定處理與設定邏輯。此分析的深度與速度是傳統 fuzzing 與人工審查達不到的。</p>
+<p>此工作讓 Fortinet 更有效率地找出漏洞。Fortinet 因此能在惡意行為者發現與利用漏洞之前先修補。Fortinet 稱此為 secure-by-design 承諾的實踐。Fortinet 稱此做法是從源頭找出弱點並關閉弱點。</p>
+<p>Fortinet 致謝 Anthropic、OpenAI、Google 與 SpaceX。Fortinet 感謝四方在整個過程中的合作。</p>
+<p>Fortinet 同時公開一個含意。同等級的 AI 能力也正變得可供攻擊者使用。開源權重模型進步會加速此事。揭露與利用之間的窗口期持續縮短。Fortinet 預期此窗口期會繼續縮短。</p>
+
+<h2>三、為何要立即升級</h2>
+<p>Fortinet 建議客戶把此發布當成優先變更。客戶不要把此發布當成例行維護週期。四個因素造成此急迫性。</p>
+<ol>
+<li>修補等級高。此批發布含 Critical 與 High 等級的修補。</li>
+<li>武器化速度變快。AI 工具現在能協助攻擊者逆向工程修補。攻擊者可在數小時或數天內做出可用的 exploit。過去需要數週。</li>
+<li>Patch diffing 風險存在。更新公開後，修補本身會揭露變更位置。修補位置會暴露潛在的系統弱點。未修補的設備因此成為更容易的目標。</li>
+<li>漏洞可以串聯。AI 有能力把看似無關的低等級漏洞連結起來。串聯結果是更嚴重且可利用的漏洞。</li>
+</ol>
+<p>Fortinet 建議客戶先套用暫時緩解。客戶再依優先序完成修補。緩解包含下列做法。客戶限制暴露並以頻外方式管理設備。客戶在可行時把資源移到 VPN 或 SASE 後方。客戶套用 virtual patch。</p>
+
+<h2>四、受影響版本與修補版本</h2>
+<h3>2026-10-22 提供</h3>
+<table>
+<tr><th>產品</th><th>受影響版本</th><th>修補版本</th></tr>
+<tr><td>FortiOS 8.0</td><td>8.0.0–8.0.1</td><td>8.0.2 以上</td></tr>
+<tr><td>FortiOS 7.6</td><td>7.6.0–7.6.7</td><td>7.6.8 以上</td></tr>
+<tr><td>FortiOS 7.4</td><td>7.4.0–7.4.12</td><td>7.4.13 以上</td></tr>
+<tr><td>FortiOS 7.2</td><td>7.2.0–7.2.13</td><td>7.2.14 以上</td></tr>
+<tr><td>FortiManager 8.0</td><td>8.0.0–8.0.1</td><td>8.0.2 以上</td></tr>
+<tr><td>FortiManager 7.6</td><td>7.6.0–7.6.7</td><td>7.6.8 以上</td></tr>
+<tr><td>FortiManager 7.4</td><td>7.4.0–7.4.11</td><td>7.4.12 以上</td></tr>
+<tr><td>FortiManager 7.2</td><td>7.2.0–7.2.12</td><td>7.2.13 以上</td></tr>
+<tr><td>FortiAnalyzer 8.0</td><td>8.0.0–8.0.1</td><td>8.0.2 以上</td></tr>
+<tr><td>FortiAnalyzer 7.6</td><td>7.6.0–7.6.7</td><td>7.6.8 以上</td></tr>
+<tr><td>FortiAnalyzer 7.4</td><td>7.4.0–7.4.11</td><td>7.4.12 以上</td></tr>
+<tr><td>FortiAnalyzer 7.2</td><td>7.2.0–7.2.12</td><td>7.2.13 以上</td></tr>
+</table>
+<h3>已先發布</h3>
+<table>
+<tr><th>產品</th><th>受影響版本</th><th>修補版本</th></tr>
+<tr><td>FortiMail 8.0</td><td>8.0.0–8.0.1</td><td>8.0.2 以上</td></tr>
+<tr><td>FortiMail 7.6</td><td>7.6.0–7.6.6</td><td>7.6.7 以上</td></tr>
+<tr><td>FortiMail 7.4</td><td>7.4.0–7.4.8</td><td>7.4.9 以上</td></tr>
+<tr><td>FortiMail 7.2</td><td>7.2.0–7.2.9</td><td>升級到 7.4 分支或更新分支</td></tr>
+<tr><td>FortiAuthenticator 8.0</td><td>8.0.0–8.0.3</td><td>8.0.4 以上</td></tr>
+<tr><td>FortiAuthenticator 6.6</td><td>6.6.0–6.6.10</td><td>6.6.11 以上</td></tr>
+</table>
+
+<h2>五、公告時程與雲端版本</h2>
+<p>公開公告不在發布日提供。Fortinet 把公告排在下一個 Patch Tuesday。日期是 2026-11-10。Fortinet 稱此安排是負責任透明與平衡客戶安全的一部分。公告將發布在 Fortinet PSIRT 頁面。</p>
+<ul>
+<li>FortiSASE 在 2026-10-22 發布前自動更新。</li>
+<li>FortiManager Cloud 在 2026-10-22 前可供更新。FortiManager Cloud 可能需要手動更新。</li>
+<li>公有雲執行個體的更新正由各雲端夥伴推送。客戶依各夥伴的標準發布流程處理。</li>
+</ul>
+
+<h2>六、今天要做的事</h2>
+<p>客戶今天先準備。客戶在 2026-10-22 發布上線後立即升級。</p>
+<ol>
+<li>盤點。客戶找出每一台 FortiManager 設備與每一個 FortiOS 執行個體。暴露在網際網路上的設備與執行個體優先。</li>
+<li>排維護窗口。客戶把對外系統的變更窗口排在 10 月 22 日到 23 日。</li>
+<li>備份設定。客戶在升級前保存現行設定。</li>
+<li>監控。客戶在修補前後檢查日誌。客戶找異常的管理存取與未核准的設定變更。</li>
+</ol>
+
+<h2>七、無法立即升級時的緩解</h2>
+<p>客戶若無法立即升級，先以下列方式降低暴露。</p>
+<ul>
+<li>客戶限制管理介面的來源。HTTPS 與 SSH 只允許可信 IP 位址。客戶也可以在對外介面上停用管理介面。</li>
+<li>客戶確認 FortiManager 管理功能無法從網際網路連入。</li>
+<li>客戶落實最佳實務。管理帳號使用強且不重複的憑證。所有管理帳號強制啟用 MFA。</li>
+</ul>
+<p>這些步驟降低風險。這些步驟不取代及時升級。</p>
+
+<h2>八、Fortinet 的承諾</h2>
+<p>Fortinet 稱客戶在下列情況下得到最好的保護。廠商主動找出漏洞並修補。廠商以負責任的方式揭露。Fortinet 稱在自家測試使用前沿 AI 是另一種走在攻擊者前面的方法。攻擊者也在用同一批工具。Fortinet 稱會把此方法繼續用在整個 Fortinet 產品組合。Fortinet 稱會以安全透明的精神與客戶分享發現。</p>
+<p>客戶需要升級協助時聯絡 Fortinet 技術支援或客戶團隊。客戶可訂閱 FortiGuard PSIRT 公告。訂閱後可取得發布日的細節。</p>
+
+<h2>九、本頁說明</h2>
+<div class="note">
+<p>原文沒有提供 CVE 編號。原文沒有提供單一漏洞的技術細節。原文沒有提供各產品的漏洞等級分布。原文沒有說明 exploit 是否已在野利用。這些資訊依原文排程在 2026-11-10 的 PSIRT 公告提供。本頁的數字與版本皆出自原文。本頁沒有加入原文以外的資訊。</p>
+</div>
+
+<h2>十、來源</h2>
+<ul class="src">
+<li>原文：Fortinet CISO Collective 部落格，Fortinet Releases Security Hardening Release for Multiple Products，作者 Carl Windsor。<a href="https://www.fortinet.com/blog/ciso-collective/fortinet-releases-security-hardening-release-for-multiple-products">fortinet.com/blog/ciso-collective/fortinet-releases-security-hardening-release-for-multiple-products</a></li>
+<li>後續公告：Fortinet PSIRT Advisories 頁面（公告排定 2026-11-10）。<a href="https://www.fortiguard.com/psirt">fortiguard.com/psirt</a></li>
+</ul>
+
+<footer>
+<p>本頁為 ASD-STE100 受控中文改寫版。原文著作權屬 Fortinet。本頁只改寫句子結構與用詞。本頁保留原文的事實、數字與範圍。讀者以原文為準。</p>
+</footer>
+</body>
+</html>
